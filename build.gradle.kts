@@ -29,6 +29,7 @@ extra["snippetsDir"] = file("build/generated-snippets")
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("com.mysql:mysql-connector-j") // 최신 드라이버 사용
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -73,16 +74,6 @@ tasks.asciidoctor {
     dependsOn(tasks.test)
 }
 
-tasks.jar {
-    manifest {
-        attributes["Main-Class"] = "com.poyoring.PoYoRingApplicationKt"
-    }
+tasks.bootJar { // Spring Boot 실행 JAR을 빌드하는 방식으로 변경
     archiveFileName.set("PoYoRing.jar") // JAR 파일명 설정
-    destinationDirectory.set(file("$buildDir/libs")) // JAR 파일 위치
-
-    // 실행에 필요한 모든 의존성을 포함
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from({
-        configurations.runtimeClasspath.get().filter { it.exists() }.map { zipTree(it) }
-    })
 }
