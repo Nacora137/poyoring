@@ -1,4 +1,4 @@
-package com.example.poyoring
+package com.poyoring
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

@@ -1,4 +1,4 @@
-package com.example.poyoring.users.entity
+package com.poyoring.users.entity
 
 import jakarta.persistence.*
 import lombok.*

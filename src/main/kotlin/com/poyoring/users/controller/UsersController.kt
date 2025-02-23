@@ -1,8 +1,8 @@
-package com.example.poyoring.users.controller
+package com.poyoring.users.controller
 
-import com.example.poyoring.users.dto.UserRequestDto
-import com.example.poyoring.users.dto.UserResponseDto
-import com.example.poyoring.users.service.UserService
+import com.poyoring.users.dto.UserRequestDto
+import com.poyoring.users.dto.UserResponseDto
+import com.poyoring.users.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 

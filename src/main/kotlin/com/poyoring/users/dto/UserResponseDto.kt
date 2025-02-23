@@ -1,4 +1,4 @@
-package com.example.poyoring.users.dto
+package com.poyoring.users.dto
 
 @JvmRecord
 data class UserResponseDto(

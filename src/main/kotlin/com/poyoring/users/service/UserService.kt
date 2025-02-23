@@ -1,9 +1,9 @@
-package com.example.poyoring.users.service
+package com.poyoring.users.service
 
-import com.example.poyoring.users.dto.UserRequestDto
-import com.example.poyoring.users.dto.UserResponseDto
-import com.example.poyoring.users.entity.User
-import com.example.poyoring.users.repository.UserRepository
+import com.poyoring.users.dto.UserRequestDto
+import com.poyoring.users.dto.UserResponseDto
+import com.poyoring.users.entity.User
+import com.poyoring.users.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

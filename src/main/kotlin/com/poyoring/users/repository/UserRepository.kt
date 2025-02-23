@@ -1,6 +1,6 @@
-package com.example.poyoring.users.repository
+package com.poyoring.users.repository
 
-import com.example.poyoring.users.entity.User
+import com.poyoring.users.entity.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.web.bind.annotation.RequestMapping
 import java.util.*
