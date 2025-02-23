@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
     id("org.asciidoctor.jvm.convert") version "3.3.2"
     kotlin("plugin.jpa") version "1.9.25"
+    application
 }
 
 group = "com.poyoring"
@@ -16,6 +17,9 @@ java {
     }
 }
 
+application {
+    mainClass.set("com.poyoring.PoYoRingApplicationKt") // Main-Class 설정
+}
 
 repositories {
     mavenCentral()
@@ -66,4 +70,18 @@ tasks.test {
 tasks.asciidoctor {
     inputs.dir(project.extra["snippetsDir"]!!)
     dependsOn(tasks.test)
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "com.poyoring.PoYoRingApplicationKt"
+    }
+    archiveFileName.set("PoYoRing.jar") // JAR 파일명 설정
+    destinationDirectory.set(file("$buildDir/libs")) // JAR 파일 위치
+
+    // 실행에 필요한 모든 의존성을 포함
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from({
+        configurations.runtimeClasspath.get().filter { it.exists() }.map { zipTree(it) }
+    })
 }
