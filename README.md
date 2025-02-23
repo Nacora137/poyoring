@@ -1,4 +1,4 @@
-# poyoring
+# PoYoRing
 
 개발중인 photo 갤러리 신규 개발 초기 세팅중
 
