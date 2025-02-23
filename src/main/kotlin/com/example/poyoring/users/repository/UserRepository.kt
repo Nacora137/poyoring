@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import java.util.*
 
 @RequestMapping
-interface UserRepository : JpaRepository<User?, Long?> {
-    fun findByEmail(email: String?): Optional<User?>?
+interface UserRepository : JpaRepository<User, Long> {
+
 }
