@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 @Tag(name = "User API", description = "회원 관리 API")
 @RestController
 @RequestMapping("/api/users")
-class UsersController(private val userService: UserService) {
+class UserController(private val userService: UserService) {
 
     // 회원 조회 (GET)
     @Operation(summary = "회원 조회", description = "회원 ID로 회원 정보를 조회합니다.")
