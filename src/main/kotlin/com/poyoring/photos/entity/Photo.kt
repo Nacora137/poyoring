@@ -1,17 +1,24 @@
 package com.poyoring.photos.entity
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "photos")
-data class Photo(
+class Photo(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long? = null,
 
-    val filename: String,
+    @Column(name = "user_id", nullable = false)
+    val userId: Long,
 
-    val fileUrl: String,  // 로컬 저장 경로 또는 클라우드 URL
+    @Column(name = "filename", length = 100)
+    var filename: String? = null,
 
-    var description: String
+    @Column(name = "file_url", length = 255)
+    var fileUrl: String? = null,
+
+    @Column(name = "uploaded_at", nullable = false, updatable = false)
+    val uploadedAt: LocalDateTime = LocalDateTime.now()
 )

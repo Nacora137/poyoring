@@ -1,55 +1,52 @@
 package com.poyoring.photos.service
 
+import com.poyoring.photos.dto.PhotoRequest
+import com.poyoring.photos.dto.PhotoResponse
 import com.poyoring.photos.entity.Photo
 import com.poyoring.photos.repository.PhotoRepository
 import org.springframework.stereotype.Service
-import org.springframework.web.multipart.MultipartFile
-import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardCopyOption
+import org.springframework.transaction.annotation.Transactional
+import java.time.format.DateTimeFormatter
 
 @Service
 class PhotoService(private val photoRepository: PhotoRepository) {
 
-    private val uploadDir = "/uploads" // 로컬 업로드 경로
-
-    fun uploadPhoto(file: MultipartFile, description: String): Photo {
-        val filename = file.originalFilename ?: throw IllegalArgumentException("파일명이 유효하지 않습니다.")
-        val filePath = "$uploadDir/$filename"
-
-        // 파일 저장
-        try {
-            Files.copy(file.inputStream, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING)
-        } catch (e: IOException) {
-            throw RuntimeException("파일 저장 중 오류 발생", e)
-        }
-
-        // 데이터베이스 저장
-        val photo = Photo(
-            filename = filename,
-            fileUrl = filePath,
-            description = description
+    @Transactional
+    fun uploadPhoto(request: PhotoRequest): PhotoResponse {
+        val photo = photoRepository.save(
+            Photo(
+                userId = request.userId,
+                filename = request.filename,
+                fileUrl = request.fileUrl
+            )
         )
-
-        return photoRepository.save(photo)
+        return toPhotoResponse(photo)
     }
 
-    fun updatePhoto(id: Long, description: String): Photo {
-        val photo = photoRepository.findById(id).orElseThrow { RuntimeException("사진을 찾을 수 없습니다.") }
-        val updatedPhoto = photo.copy(description = description)
-        return photoRepository.save(updatedPhoto)
+    @Transactional(readOnly = true)
+    fun getPhoto(id: Long): PhotoResponse {
+        val photo = photoRepository.findById(id).orElseThrow { RuntimeException("Photo not found") }
+        return toPhotoResponse(photo)
     }
 
+    @Transactional(readOnly = true)
+    fun getUserPhotos(userId: Long): List<PhotoResponse> {
+        return photoRepository.findByUserId(userId).map { toPhotoResponse(it) }
+    }
+
+    @Transactional
     fun deletePhoto(id: Long) {
-        val photo = photoRepository.findById(id).orElseThrow { RuntimeException("사진을 찾을 수 없습니다.") }
+        if (!photoRepository.existsById(id)) throw RuntimeException("Photo not found")
+        photoRepository.deleteById(id)
+    }
 
-        try {
-            Files.deleteIfExists(Paths.get(photo.fileUrl)) // 파일 삭제
-        } catch (e: IOException) {
-            throw RuntimeException("파일 삭제 중 오류 발생", e)
-        }
-
-        photoRepository.delete(photo)
+    private fun toPhotoResponse(photo: Photo): PhotoResponse {
+        return PhotoResponse(
+            id = photo.id!!,
+            userId = photo.userId,
+            filename = photo.filename,
+            fileUrl = photo.fileUrl,
+            uploadedAt = photo.uploadedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+        )
     }
 }
