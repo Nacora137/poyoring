@@ -3,12 +3,6 @@ package com.poyoring.feeds.entity
 import com.poyoring.photos.entity.Photo
 import jakarta.persistence.*
 
-@Embeddable
-data class FeedPhotoId(
-    val feedId: Long,
-    val photoId: Long
-) : java.io.Serializable
-
 @Entity
 @Table(name = "feed_photos")
 class FeedPhoto(

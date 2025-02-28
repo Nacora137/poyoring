@@ -1,7 +1,6 @@
 package com.poyoring.likes.entity
 
 import jakarta.persistence.*
-import java.io.Serializable
 import java.time.LocalDateTime
 
 @Entity
@@ -17,8 +16,3 @@ data class Like(
     @Column(name = "created_at", updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now()
 )
-
-data class LikeId(
-    val userId: Long = 0,
-    val feedId: Long = 0
-) : Serializable
