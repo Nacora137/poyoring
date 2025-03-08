@@ -3,7 +3,6 @@ package com.poyoring.users.entity
 import jakarta.persistence.*
 import lombok.*
 
-
 @Entity
 @Table(name = "users")
 @Getter
@@ -13,18 +12,17 @@ import lombok.*
 class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    var id: Long? = null,
 
-    @Column(nullable = false, unique = true, length = 255)
-    val email: String,
+    @Column(nullable = false, unique = true)
+    var username: String? = null,
 
-    @Column(nullable = false, unique = true, length = 50)
-    var nickname: String,
+    @Column(nullable = true, unique = true)
+    var email: String? = null,
 
-    var profileUrl: String?
-) {
-    fun updateProfile(newNickname: String, newProfileUrl: String?) {
-        this.nickname = newNickname
-        this.profileUrl = newProfileUrl
-    }
-}
+    @Column(nullable = true)
+    var nickname: String? = null,
+
+    @Column(nullable = true)
+    var profileUrl: String? = null
+)

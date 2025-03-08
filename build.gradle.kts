@@ -47,6 +47,12 @@ dependencies {
     // Spring Boot와 함께 사용할 경우
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.11.5") // Jackson 기반 파서 사용 시 필요
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
 }
 
 kotlin {
