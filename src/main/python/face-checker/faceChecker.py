@@ -104,7 +104,7 @@ async def find_faces_in_website(url: str) -> str:
                 # 얼굴이 검출된 이미지만 추가
                 for img_url, has_face in zip([img.get('src') for img in img_tags], results):
                     if has_face:
-                        face_detected_urls.append(img_url)
+                        face_detected_urls.append(img_url)
 
                 return json.dumps({"face_detected_images": face_detected_urls}, ensure_ascii=False, indent=4)
 
