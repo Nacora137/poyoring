@@ -47,6 +47,8 @@ dependencies {
     // Spring Boot와 함께 사용할 경우
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+
+    implementation("org.json:json:20220320")  // JSON 객체 파싱용
 }
 
 kotlin {
