@@ -19,7 +19,7 @@ class UserService( private val userRepository: UserRepository) {
 
     @Transactional
     fun createUser(requestDto: UserRequestDto): UserResponseDto {
-        val user: User = User(null, requestDto.email, requestDto.nickname, requestDto.profileUrl)
+        val user: User = User(null, requestDto.username, requestDto.email, requestDto.nickname, requestDto.profileUrl)
         val savedUser: User = userRepository.save(user)
         return UserResponseDto(savedUser.id, savedUser.email, savedUser.nickname, savedUser.profileUrl)
     }

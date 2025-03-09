@@ -15,6 +15,9 @@ class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @Column(nullable = false, unique = true)
+    val username: String,  // 반드시 있어야 함
+
     @Column(nullable = false, unique = true, length = 255)
     val email: String,
 

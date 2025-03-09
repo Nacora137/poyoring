@@ -5,6 +5,9 @@ import io.swagger.v3.oas.annotations.media.Schema
 @JvmRecord
 @Schema(description = "회원 요청 DTO")
 data class UserRequestDto(
+    @Schema(description = "사용자 이름", example = "홍길동")
+    val username: String,
+
     @Schema(description = "사용자의 이메일 주소", example = "user@example.com")
     val email: String,
 
